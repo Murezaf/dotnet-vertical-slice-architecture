@@ -7,3 +7,13 @@ Accept: application/json
 
 GET {{HostAddressRoot}}/api/itineraries?searchFor=a
 Accept: application/json
+
+###
+
+GET {{HostAddressRoot}}/api/itineraries/1/stops
+Accept: application/json
+
+###
+
+GET {{HostAddressRoot}}/api/itineraries/1111/stops
+Accept: application/json
