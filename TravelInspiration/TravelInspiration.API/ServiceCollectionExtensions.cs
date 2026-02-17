@@ -4,11 +4,16 @@ using TravelInspiration.API.Shared.Persistence.Migrations;
 
 namespace TravelInspiration.API;
 
+
 public static class ServiceCollectionExtensions
 {
+
     public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IDestinationSearchApiClient, DestinationSearchApiClient>();
+        services.AddAutoMapper(
+            AppDomain.CurrentDomain.GetAssemblies());
+
         return services;
     }
 

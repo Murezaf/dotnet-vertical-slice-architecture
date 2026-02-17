@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using TravelInspiration.API.Shared.Networking;
 
-namespace TravelInspiration.API.Features.SearchDestinations;
+namespace TravelInspiration.API.Features.Destinations;
 
 public static class SearchDestinations
 {
