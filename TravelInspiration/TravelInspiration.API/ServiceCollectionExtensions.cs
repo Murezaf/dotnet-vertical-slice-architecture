@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using TravelInspiration.API.Shared.Networking;
 using TravelInspiration.API.Shared.Persistence.Migrations;
 
@@ -11,8 +12,11 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IDestinationSearchApiClient, DestinationSearchApiClient>();
-        services.AddAutoMapper(
-            AppDomain.CurrentDomain.GetAssemblies());
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+        });
 
         return services;
     }
