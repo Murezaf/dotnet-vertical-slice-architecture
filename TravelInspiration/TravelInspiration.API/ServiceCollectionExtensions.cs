@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using TravelInspiration.API.Shared.Behaviors;
 using TravelInspiration.API.Shared.Networking;
 using TravelInspiration.API.Shared.Persistence.Migrations;
 using TravelInspiration.API.Shared.Slices;
@@ -16,7 +17,8 @@ public static class ServiceCollectionExtensions
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+            cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())
+            .RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()).AddOpenRequestPreProcessor(typeof(LoggingBehavior<>));
         });
         services.RegisterSlices();
 
