@@ -55,7 +55,7 @@ public static class GetStops
         {
             logger.CreateLogger("Endpoint Handler").LogInformation("GetStops feature called");
 
-            return mediator.Send(new GetStopsQuery(itineraryId));
+            return mediator.Send(new GetStopsQuery(itineraryId), cancellationToken);
         });
     }
 }
@@ -68,7 +68,7 @@ public sealed class StopDto
     public required int ItineraryId { get; set; }
 }
 
-public class StopMapProfile : Profile
+public sealed class StopMapProfile : Profile
 {
     public StopMapProfile()
     {
