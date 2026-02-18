@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using TravelInspiration.API.Shared.Networking;
+using TravelInspiration.API.Shared.Slices;
 
 namespace TravelInspiration.API.Features.Destinations;
 
-public static class SearchDestinations
+//public static class SearchDestinations
+public sealed class SearchDestinations : ISlice
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    //public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("api/destinations", async (string? searchFor, ILoggerFactory logger,
             IDestinationSearchApiClient destinationSearchApiClient, CancellationToken cancellationToken) =>

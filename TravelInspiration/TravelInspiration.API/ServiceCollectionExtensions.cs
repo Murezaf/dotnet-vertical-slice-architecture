@@ -2,6 +2,7 @@
 using System.Reflection;
 using TravelInspiration.API.Shared.Networking;
 using TravelInspiration.API.Shared.Persistence.Migrations;
+using TravelInspiration.API.Shared.Slices;
 
 namespace TravelInspiration.API;
 
@@ -17,6 +18,7 @@ public static class ServiceCollectionExtensions
         {
             cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
         });
+        services.RegisterSlices();
 
         return services;
     }

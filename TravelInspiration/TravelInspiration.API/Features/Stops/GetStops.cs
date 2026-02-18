@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TravelInspiration.API.Shared.Domain.Entities;
 using TravelInspiration.API.Shared.Persistence.Migrations;
+using TravelInspiration.API.Shared.Slices;
 
 namespace TravelInspiration.API.Features.Stops;
 
@@ -46,9 +47,11 @@ public sealed class GetStopsHandler(TravelInspirationDbContext dbContext, IMappe
     }
 }
 
-public static class GetStops
+//public static class GetStops
+public sealed class GetStops : ISlice
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    //public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("api/itineraries/{itineraryId}/stops", (int itineraryId, IMediator mediator,
             ILoggerFactory logger, CancellationToken cancellationToken) =>

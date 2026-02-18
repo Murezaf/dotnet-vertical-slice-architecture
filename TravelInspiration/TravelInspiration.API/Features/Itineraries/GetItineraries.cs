@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelInspiration.API.Shared.Domain.Entities;
 using TravelInspiration.API.Shared.Persistence.Migrations;
+using TravelInspiration.API.Shared.Slices;
 
 namespace TravelInspiration.API.Features.Itineraries;
 
@@ -54,9 +55,11 @@ public sealed class GetItinerariesHandler(TravelInspirationDbContext dbContext, 
     }
 }
 
-public static class GetItineraries
+//public static class GetItineraries
+public sealed class GetItineraries : ISlice
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    //public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("api/itineraries", (string? searchFor, IMediator mediator, 
             ILoggerFactory logger, CancellationToken cancellationToken) =>
