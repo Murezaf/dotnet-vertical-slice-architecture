@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TravelInspiration.API.Shared.Behaviors;
+using TravelInspiration.API.Shared.Metrics;
 using TravelInspiration.API.Shared.Networking;
 using TravelInspiration.API.Shared.Persistence.Migrations;
 using TravelInspiration.API.Shared.Slices;
@@ -18,9 +20,12 @@ public static class ServiceCollectionExtensions
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())
-            .RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()).AddOpenRequestPreProcessor(typeof(LoggingBehavior<>));
+            .RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())
+            .AddOpenRequestPreProcessor(typeof(LoggingBehavior<>))
+            .AddBehavior(typeof(IPipelineBehavior<,>),typeof(HandlerPerformanceMetricBehavior<,>));
         });
         services.RegisterSlices();
+        services.AddSingleton<HandlerPerformanceMetric>();
 
         return services;
     }
