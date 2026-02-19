@@ -46,7 +46,7 @@ public sealed class GetItinerariesHandler(TravelInspirationDbContext dbContext, 
     {
         var itineraries = await _dbContext.Itineraries.Where(i =>
             request.SearchFor == null || i.Name.Contains(request.SearchFor) || (i.Description != null && i.Description.Contains(request.SearchFor)))
-            .ToListAsync(cancellationToken);
+            .AsNoTracking().ToListAsync(cancellationToken);
 
         var mappedItineraries = _mapper.Map<IEnumerable<ItineraryDto>>(itineraries);
 

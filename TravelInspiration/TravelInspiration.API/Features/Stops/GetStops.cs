@@ -38,7 +38,7 @@ public sealed class GetStopsHandler(TravelInspirationDbContext dbContext, IMappe
 
     public async Task<IResult> Handle(GetStopsQuery request, CancellationToken cancellationToken)
     {
-        var itinerary = await _dbContext.Itineraries.Include(i => i.Stops).FirstOrDefaultAsync(i => i.Id == request.ItineraryId, cancellationToken);
+        var itinerary = await _dbContext.Itineraries.Include(i => i.Stops).AsNoTracking().FirstOrDefaultAsync(i => i.Id == request.ItineraryId, cancellationToken);
 
         if (itinerary == null)
             return Results.NotFound();
