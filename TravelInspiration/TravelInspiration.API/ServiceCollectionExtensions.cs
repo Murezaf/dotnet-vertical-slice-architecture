@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TravelInspiration.API.Shared.Behaviors;
@@ -22,10 +23,12 @@ public static class ServiceCollectionExtensions
             cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())
             .RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())
             .AddOpenRequestPreProcessor(typeof(LoggingBehavior<>))
-            .AddBehavior(typeof(IPipelineBehavior<,>),typeof(HandlerPerformanceMetricBehavior<,>));
+            .AddOpenBehavior(typeof(ModelValidationBehavior<,>))
+            .AddOpenBehavior(typeof(HandlerPerformanceMetricBehavior<,>));
         });
         services.RegisterSlices();
         services.AddSingleton<HandlerPerformanceMetric>();
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
     }

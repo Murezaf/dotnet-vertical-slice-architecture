@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TravelInspiration.API.Shared.Domain.Entities;
@@ -59,3 +60,14 @@ public sealed class CreateStopCommandHandler(TravelInspirationDbContext dbContex
 //{
 
 //}
+
+public sealed class CreateStopCommandValidator : AbstractValidator<CreateStopCommand>
+{
+    public CreateStopCommandValidator()
+    {
+        RuleFor(v => v.Name).MaximumLength(200).NotEmpty();
+        RuleFor(v => v.ImageUri).Must(ImageUri => Uri.TryCreate(ImageUri ?? "", UriKind.Absolute, out var imageUri))
+            .When(v => !string.IsNullOrWhiteSpace(v.ImageUri))
+            .WithMessage("ImageUri must be valid");
+    }
+}

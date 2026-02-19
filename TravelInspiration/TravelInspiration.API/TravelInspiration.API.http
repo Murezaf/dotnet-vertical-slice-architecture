@@ -28,3 +28,23 @@ Content-Type: application/json
   "name": "a stop for testing",
   "imageUri": "https://localhost:7120/images/stopfortesting.jpg"
 }
+
+###
+
+POST {{HostAddressRoot}}/api/itineraries/1/stops
+Accept: application/json
+Content-Type: application/json
+
+{
+  "imageUri": "https://localhost:7120/images/stopfortesting.jpg"
+}
+
+###
+
+POST {{HostAddressRoot}}/api/itineraries/1/stops
+Accept: application/json
+Content-Type: application/json
+
+{
+  "imageUri": "not valid"
+}
