@@ -45,7 +45,7 @@ public sealed class CreateStopCommandHandler(TravelInspirationDbContext dbContex
         _dbContext.Stops.Add(newStopEntity);
         await _dbContext.SaveChangesAsync();
 
-        return Results.Created($"api/itineraries/{newStopEntity.ItineraryId}/stops/{newStopEntity.Id}" , _mapper.Map<StopDto>(newStopEntity));
+        return Results.Created($"api/itineraries/{newStopEntity.ItineraryId}/stops/{newStopEntity.Id}", _mapper.Map<StopDto>(newStopEntity));
     }
 }
 
@@ -73,43 +73,43 @@ public sealed class CreateStopCommandValidator : AbstractValidator<CreateStopCom
     }
 }
 
-public sealed class SuggestStopStopCreatedEventHandler(ILogger<SuggestStopStopCreatedEventHandler> logger, TravelInspirationDbContext dbContext)
-    : INotificationHandler<StopCreatedEvent>
-{
-    private readonly ILogger<SuggestStopStopCreatedEventHandler> _logger = logger;
-    private readonly TravelInspirationDbContext _dbContext = dbContext;
+//public sealed class SuggestStopStopCreatedEventHandler(ILogger<SuggestStopStopCreatedEventHandler> logger, TravelInspirationDbContext dbContext)
+//    : INotificationHandler<StopCreatedEvent>
+//{
+//    private readonly ILogger<SuggestStopStopCreatedEventHandler> _logger = logger;
+//    private readonly TravelInspirationDbContext _dbContext = dbContext;
 
-    public Task Handle(StopCreatedEvent notification, CancellationToken cancellationToken)
-    {
-        _logger.LogInformation($"Listener {GetType().Name} to domain event {notification.GetType().Name}.");
+//    public Task Handle(StopCreatedEvent notification, CancellationToken cancellationToken)
+//    {
+//        _logger.LogInformation($"Listener {GetType().Name} to domain event {notification.GetType().Name}.");
 
-        var incomingStop = notification.Stop;
+//        var incomingStop = notification.Stop;
 
-        //AI is generating a new stop based on incomingStop
+//        //AI is generating a new stop based on incomingStop
 
-        Stop stopAIGenerated = new Stop($"Stop made by AI based on {incomingStop.Name}.")
-        {
-            ItineraryId = incomingStop.ItineraryId,
-            ImageUri = new Uri("https://herebeimages.com/aigenerated.png"),
-            IsSuggestedByAI = true
-        };
+//        Stop stopAIGenerated = new Stop($"Stop made by AI based on {incomingStop.Name}.")
+//        {
+//            ItineraryId = incomingStop.ItineraryId,
+//            ImageUri = new Uri("https://herebeimages.com/aigenerated.png"),
+//            IsSuggestedByAI = true
+//        };
 
-        _dbContext.Stops.Add(stopAIGenerated);
-        return Task.CompletedTask;
-    }
+//        _dbContext.Stops.Add(stopAIGenerated);
+//        return Task.CompletedTask;
+//    }
+//}
 
-    public sealed class SuggestItineraryStopCreatedEventHandler(ILogger<SuggestItineraryStopCreatedEventHandler> logger)
-        : INotificationHandler<StopCreatedEvent>
-    {
-        private readonly ILogger _logger = logger;
+//public sealed class SuggestItineraryStopCreatedEventHandler(ILogger<SuggestItineraryStopCreatedEventHandler> logger)
+//    : INotificationHandler<StopCreatedEvent>
+//{
+//    private readonly ILogger _logger = logger;
 
-        public Task Handle(StopCreatedEvent notification, CancellationToken cancellationToken)
-        {
-            _logger.LogInformation($"Listener {GetType().Name} to domain event {notification.GetType().Name}.");
+//    public Task Handle(StopCreatedEvent notification, CancellationToken cancellationToken)
+//    {
+//        _logger.LogInformation($"Listener {GetType().Name} to domain event {notification.GetType().Name}.");
 
-            //AI things is happening
+//        //AI things is happening
 
-            return Task.CompletedTask;
-        }
-    }
-}
+//        return Task.CompletedTask;
+//    }
+//}
