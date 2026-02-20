@@ -48,3 +48,15 @@ Content-Type: application/json
 {
   "imageUri": "not valid"
 }
+
+###
+
+PUT {{HostAddressRoot}}/api/itineraries/1/stops/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "An updated name"
+}
+
+###
