@@ -18,7 +18,7 @@ public sealed class CreateStop : ISlice
             {
                 createStopCommand.ItineraryId = itineraryId;
                 return mediator.Send(createStopCommand);
-            });
+            }).RequireAuthorization();
     }
 }
 

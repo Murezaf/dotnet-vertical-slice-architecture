@@ -19,7 +19,7 @@ public sealed class UpdateStop : ISlice
                 updateStopCommand.StopId = stopId;
 
                 return mediator.Send(updateStopCommand, cancellationToken);
-            });
+            }).RequireAuthorization();
     }
 }
 

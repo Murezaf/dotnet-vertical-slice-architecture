@@ -60,7 +60,7 @@ public sealed class GetStops : ISlice
             //logger.CreateLogger("Endpoint Handler").LogInformation("GetStops feature called");
 
             return mediator.Send(new GetStopsQuery(itineraryId), cancellationToken);
-        });
+        }).RequireAuthorization();
     }
 }
 

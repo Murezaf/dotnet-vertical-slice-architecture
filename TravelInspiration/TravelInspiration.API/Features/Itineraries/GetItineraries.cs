@@ -68,7 +68,7 @@ public sealed class GetItineraries : ISlice
             //logger.CreateLogger("Endpoint Handler").LogInformation("GetItineraries feature called");
 
             return mediator.Send(new GetItinerariesQuery(searchFor), cancellationToken);
-        });
+        }).RequireAuthorization();
     }
 }
 

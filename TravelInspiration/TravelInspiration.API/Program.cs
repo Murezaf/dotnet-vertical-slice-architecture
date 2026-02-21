@@ -9,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddHttpClient();
 
-builder.Services.AddProblemDetails();   
+builder.Services.AddProblemDetails();
+
+builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+builder.Services.AddAuthorization();
 
 builder.Services.RegisterApplicationServices();
 builder.Services.RegisterPersistenceServices(builder.Configuration);
@@ -30,6 +33,9 @@ else
 }
 
 app.UseStatusCodePages();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 //SearchDestinations.AddEndpoint(app);
 //GetItineraries.AddEndpoint(app);
