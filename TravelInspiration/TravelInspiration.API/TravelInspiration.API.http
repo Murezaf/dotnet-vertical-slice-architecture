@@ -82,3 +82,14 @@ Content-Type: application/json
 GET {{HostAddressRoot}}/api/itineraries?searchFor=a
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkEiLCJzdWIiOiJBIiwianRpIjoiMTU2ZDYxYzUiLCJmZWF0dXJlIjoiZ2V0LWl0aW5lcmFyaWVzIiwiYXVkIjoidHJhdmVsaW5zcGlyYXRpb24tYXBpIiwibmJmIjoxNzcxNjc1OTgxLCJleHAiOjE3NzkzNjU1ODEsImlhdCI6MTc3MTY3NTk4MiwiaXNzIjoiZG90bmV0LXVzZXItand0cyJ9.BX8q0yESBBF7ohWb89-BGNiEM6HZ7H8Soht0hI8J-IY
+
+###
+
+PUT {{HostAddressRoot}}/api/itineraries/1/stops/1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkEiLCJzdWIiOiJBIiwianRpIjoiNTIyMTQzZmMiLCJzY29wZSI6IndyaXRlIiwiYXVkIjoidHJhdmVsaW5zcGlyYXRpb24tYXBpIiwibmJmIjoxNzcxNjc2NjkzLCJleHAiOjE3NzkzNjYyOTMsImlhdCI6MTc3MTY3NjY5NCwiaXNzIjoiZG90bmV0LXVzZXItand0cyJ9.MgVjSxbJZJfNaEOD_Jh_vR_FPw-O1AN_PX5tXs5329A
+Content-Type: application/json
+
+{
+  "name": "An updated name"
+}

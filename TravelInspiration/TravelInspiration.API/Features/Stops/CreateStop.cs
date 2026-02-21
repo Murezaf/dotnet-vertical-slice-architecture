@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using TravelInspiration.API.Shared.Domain.Entities;
 using TravelInspiration.API.Shared.Domain.Events;
 using TravelInspiration.API.Shared.Persistence.Migrations;
+using TravelInspiration.API.Shared.Security;
 using TravelInspiration.API.Shared.Slices;
 
 namespace TravelInspiration.API.Features.Stops;
@@ -18,7 +19,7 @@ public sealed class CreateStop : ISlice
             {
                 createStopCommand.ItineraryId = itineraryId;
                 return mediator.Send(createStopCommand);
-            }).RequireAuthorization();
+            }).RequireAuthorization(AuthorizationPolicies.HasWriteActionPolicy);
     }
 }
 
