@@ -76,3 +76,9 @@ Content-Type: application/json
   "name": "a stop for testing",
   "imageUri": "https://localhost:7120/images/stopfortesting.jpg"
 }
+
+###
+
+GET {{HostAddressRoot}}/api/itineraries?searchFor=a
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkEiLCJzdWIiOiJBIiwianRpIjoiMTU2ZDYxYzUiLCJmZWF0dXJlIjoiZ2V0LWl0aW5lcmFyaWVzIiwiYXVkIjoidHJhdmVsaW5zcGlyYXRpb24tYXBpIiwibmJmIjoxNzcxNjc1OTgxLCJleHAiOjE3NzkzNjU1ODEsImlhdCI6MTc3MTY3NTk4MiwiaXNzIjoiZG90bmV0LXVzZXItand0cyJ9.BX8q0yESBBF7ohWb89-BGNiEM6HZ7H8Soht0hI8J-IY

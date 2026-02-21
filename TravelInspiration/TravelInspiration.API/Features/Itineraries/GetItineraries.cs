@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelInspiration.API.Shared.Domain.Entities;
@@ -58,6 +59,9 @@ public sealed class GetItinerariesHandler(TravelInspirationDbContext dbContext, 
 //public static class GetItineraries
 public sealed class GetItineraries : ISlice
 {
+    private AuthorizationPolicy _hasGetItinerariesFeaturePolicy => new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser().RequireClaim("feature","get-itineraries").Build();
+
     //public static void AddEndpoint(IEndpointRouteBuilder app)
     public void AddEndpoint(IEndpointRouteBuilder app)
     {
@@ -68,7 +72,7 @@ public sealed class GetItineraries : ISlice
             //logger.CreateLogger("Endpoint Handler").LogInformation("GetItineraries feature called");
 
             return mediator.Send(new GetItinerariesQuery(searchFor), cancellationToken);
-        }).RequireAuthorization();
+        }).RequireAuthorization(_hasGetItinerariesFeaturePolicy);
     }
 }
 
