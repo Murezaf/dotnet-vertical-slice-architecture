@@ -64,3 +64,15 @@ Content-Type: application/json
 GET {{HostAddressRoot}}/api/itineraries?searchFor=a
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkEiLCJzdWIiOiJBIiwianRpIjoiY2I4ZmVlYmQiLCJhdWQiOiJ0cmF2ZWxpbnNwaXJhdGlvbi1hcGkiLCJuYmYiOjE3NzE2Njk2MjAsImV4cCI6MTc3OTM1OTIyMCwiaWF0IjoxNzcxNjY5NjIxLCJpc3MiOiJkb3RuZXQtdXNlci1qd3RzIn0.xYW1MaaUf9rr8xj59m9EQpC81268MF-GGOBsT7zSUAY
+
+###
+
+POST {{HostAddressRoot}}/api/itineraries/1/stops
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkEiLCJzdWIiOiJBIiwianRpIjoiY2I4ZmVlYmQiLCJhdWQiOiJ0cmF2ZWxpbnNwaXJhdGlvbi1hcGkiLCJuYmYiOjE3NzE2Njk2MjAsImV4cCI6MTc3OTM1OTIyMCwiaWF0IjoxNzcxNjY5NjIxLCJpc3MiOiJkb3RuZXQtdXNlci1qd3RzIn0.xYW1MaaUf9rr8xj59m9EQpC81268MF-GGOBsT7zSUAY
+Content-Type: application/json
+
+{
+  "name": "a stop for testing",
+  "imageUri": "https://localhost:7120/images/stopfortesting.jpg"
+}
