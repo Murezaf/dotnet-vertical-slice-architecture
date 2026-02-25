@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-
+using TravelInspiration.API.Shared.Security;
+using Microsoft.Extensions.DependencyInjection;
 namespace TravelInspiration.API.IntegrationTests.Factories;
 
 public sealed class TravelInspirationWebApplicationFactory : WebApplicationFactory<Program>
@@ -14,6 +15,16 @@ public sealed class TravelInspirationWebApplicationFactory : WebApplicationFacto
                 new Dictionary<string, string?>{ { "ConnectionStrings:TravelInspirationDbConnection", "Server=(localdb)\\mssqllocaldb;Database=TravelInspirationDb_IntegrationTests;Trusted_Connection=True;MultipleActiveResultSets=True" } });
         });
 
+        builder.ConfigureServices((services) =>
+        {
+            services.AddScoped<ICurrentUserService, DummyUserService>();
+        });
+
         base.ConfigureWebHost(builder);
+    }
+
+    public sealed class DummyUserService : ICurrentUserService
+    {
+        public string? UserId { get { return "TESTUSER"; } }
     }
 }

@@ -1,6 +1,6 @@
-﻿using TravelInspiration.API.Features.Stops;
-using TravelInspiration.API.Shared.Domain.Entities;
+﻿using TravelInspiration.API.Shared.Domain.Entities;
 using TravelInspiration.API.Shared.Domain.Events;
+using static TravelInspiration.API.Features.Stops.CreateStop;
 
 namespace TravelInspiration.API.UnitTests.Shared.Domain;
 
