@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using TravelInspiration.API.IntegrationTests.Factories;
 using TravelInspiration.API.Shared.Persistence.Migrations;
 
@@ -7,22 +9,24 @@ namespace TravelInspiration.API.IntegrationTests.Fixtures;
 public sealed class SliceFixture
 {
     private readonly TravelInspirationWebApplicationFactory _factory;
-    public IServiceScopeFactory ServiceScopeFactory { get; }
+    private readonly IServiceScopeFactory _serviceScopeFactory;
     private static readonly object _lock = new object();
-    private static bool _databaseInitialized; 
+    private static bool _databaseInitialized;
+
+    private IServiceScope? _scope;
 
     public SliceFixture()
     {
         _factory = new TravelInspirationWebApplicationFactory();
-        ServiceScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+        _serviceScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
 
         lock (_lock)
         {
             if (!_databaseInitialized)
             {
-                using (var scope = ServiceScopeFactory.CreateScope())
+                using (_scope = _serviceScopeFactory.CreateScope())
                 {
-                    using(var context = CreateContext(scope))
+                    using(var context = CreateContext(_scope))
                     {
                         context.Database.EnsureDeleted();
                         context.Database.EnsureCreated();
@@ -37,9 +41,34 @@ public sealed class SliceFixture
         }
     }
 
-    public TravelInspirationDbContext CreateContext(IServiceScope scope)
+    //public TravelInspirationDbContext CreateContext(IServiceScope scope)
+    private TravelInspirationDbContext CreateContext(IServiceScope scope)
     {
         var context = scope.ServiceProvider.GetRequiredService<TravelInspirationDbContext>();
         return context;
+    }
+
+    public async Task ExecuteInTransactionAsync(Func<TravelInspirationDbContext, Task> actionToExecute)
+    {
+        using (_scope = _serviceScopeFactory.CreateScope())
+        {
+            var context = CreateContext(_scope);
+            await context.Database.BeginTransactionAsync();
+
+            await actionToExecute(context);
+        
+            await context.Database.RollbackTransactionAsync();
+        }
+    }
+
+    public async Task SendAsync(IRequest<IResult> cmdOrQuery)
+    {
+        if(_scope == null)
+        {
+            throw new ArgumentException("Must be run in the context of a scope.");
+        }
+
+        var mediator = _scope.ServiceProvider.GetRequiredService<IMediator>();
+        await mediator.Send(cmdOrQuery);
     }
 }
