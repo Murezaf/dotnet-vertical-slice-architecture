@@ -44,3 +44,7 @@ app.UseAuthorization();
 app.MapSliceEndpoints();
 
 app.Run();
+
+public partial class Program
+{
+}
